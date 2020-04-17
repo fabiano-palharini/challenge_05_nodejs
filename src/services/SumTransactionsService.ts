@@ -1,7 +1,7 @@
 import TransactionsRepository from '../repositories/TransactionsRepository';
 import Transaction from '../models/Transaction';
 
-class SumTransactionService {
+class SumTransactionsService {
   private transactionRepository: TransactionsRepository;
 
   constructor(transactionRepository: TransactionsRepository) {
@@ -21,4 +21,4 @@ class SumTransactionService {
   }
 }
 
-export default SumTransactionService;
+export default SumTransactionsService;
