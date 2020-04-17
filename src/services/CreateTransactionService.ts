@@ -1,7 +1,6 @@
 import TransactionsRepository from '../repositories/TransactionsRepository';
 import Transaction from '../models/Transaction';
 
-
 interface TransactiontDTO {
   title: string;
   value: number;
@@ -15,10 +14,12 @@ class CreateTransactionService {
     this.transactionsRepository = transactionsRepository;
   }
 
-  public execute({title, value,  type}: TransactiontDTO): Transaction {
-    const transaction = this.transactionsRepository.create({title, value,  type});
-
-
+  public execute({ title, value, type }: TransactiontDTO): Transaction {
+    const transaction = this.transactionsRepository.create({
+      title,
+      value,
+      type,
+    });
 
     return transaction;
   }

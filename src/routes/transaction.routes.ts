@@ -1,28 +1,22 @@
 import { Router } from 'express';
 import CreateTransactionService from '../services/CreateTransactionService';
+import SumTransactionsService from '../services/SumTransactionsService';
 import TransactionsRepository from '../repositories/TransactionsRepository';
-import Transaction from '../models/Transaction';
 
 const transactionRouter = Router();
 
 const transactionsRepository = new TransactionsRepository();
 
-function sumTransactions(transactions: Transaction[], type: string): number {
-  const items = transactions.filter(transaction => transaction.type === type);
-
-  const sumItems = items.reduce(function (total, income) {
-    return total + income.value;
-  }, 0);
-
-  return sumItems;
-}
-
 transactionRouter.get('/', (request, response) => {
   try {
     const transactions = transactionsRepository.all();
 
-    const sumIncomes = sumTransactions(transactions, 'income');
-    const sumOutcomes = sumTransactions(transactions, 'outcome');
+    const sumTransactionsService = new SumTransactionsService(
+      transactionsRepository,
+    );
+
+    const sumIncomes = sumTransactionsService.sum('income');
+    const sumOutcomes = sumTransactionsService.sum('outcome');
     const total = sumIncomes - sumOutcomes;
 
     return response.status(200).json({
